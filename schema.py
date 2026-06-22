@@ -1,4 +1,4 @@
-def shape_output(original,normalized, matches, score,verdict):
+def shape_output(original, normalized, matches, score, verdict, processing_time_ms=None):
     return{
     "original_text": original,
     "verdict": verdict,
@@ -6,5 +6,5 @@ def shape_output(original,normalized, matches, score,verdict):
     "raw_score": score["raw"],
     "bonuses": score["bonuses"],
     "rules_fired": matches,
-    "processing_time_ms": None  
+    "processing_time_ms": processing_time_ms
 }
