@@ -7,7 +7,7 @@ PATTERNS = [
     {
         "rule_id": "RH_001",
         "family": "role_hijack",
-        "pattern": r"ignore\s+(all\s+)?previous\s+instructions",
+        "pattern": r"ignore\s+(all\s+)?((the|your|its|our|their)\s+)?(previous\s+)?(instructions|rules|directions)",
         "weight": 4,
     },
     {

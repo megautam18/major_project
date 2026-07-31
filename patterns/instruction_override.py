@@ -9,7 +9,7 @@ PATTERNS = [
     {
         "rule_id": "IO_002",
         "family": "instruction_override",
-        "pattern": r"ignore\s+(all\s+)?(previous|prior|following|above|below)\s+instructions",
+        "pattern": r"ignore\s+(all\s+)?((the|your|its|our|their)\s+)?(previous|prior|following|above|below)\s+(instructions|rules|directions)",
         "weight": 6,
     },
     {
