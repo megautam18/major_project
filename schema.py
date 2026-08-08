@@ -1,4 +1,4 @@
-def shape_output(original, normalized, matches, score, verdict, processing_time_ms=None):
+def shape_output(original, matches, score, verdict, processing_time_ms=None):
     return{
     "original_text": original,
     "verdict": verdict,

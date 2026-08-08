@@ -16,7 +16,6 @@ def analyze(prompt: str) -> dict:
 
     output_dict = schema.shape_output(
         original=prompt,
-        normalized=normalizer_op,
         matches=matcher_op,
         score=scorer_op,
         verdict=classifier_op,

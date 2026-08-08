@@ -1,4 +1,4 @@
-def score(matches: list[dict]) -> dict:
+def score(matches: list[dict], ablate: bool = False) -> dict:
     """Score a list of pattern matches using adaptive weighting and bonus detection.
 
     Each match dict is expected to have keys:
@@ -13,6 +13,9 @@ def score(matches: list[dict]) -> dict:
 
     Args:
         matches: List of match dicts produced by the rule engine.
+        ablate: If True, skip the cross-family multiplier, the density
+            penalty, and all bonuses — raw_total is the plain sum of
+            original match weights.
 
     Returns:
         Dict with raw score, normalized score, triggered bonuses, and a
@@ -55,11 +58,11 @@ def score(matches: list[dict]) -> dict:
         adapted_weight = original_weight
 
         # Multiplier 1: cross-family diversity (applied first)
-        if unique_family_count >= 3:
+        if not ablate and unique_family_count >= 3:
             adapted_weight = adapted_weight * 1.5
 
         # Multiplier 2: family density penalty (applied second)
-        if family_counts[match["family"]] >= 3:
+        if not ablate and family_counts[match["family"]] >= 3:
             adapted_weight = adapted_weight * 0.8
 
         adapted_weight = round(adapted_weight, 2)
@@ -83,19 +86,19 @@ def score(matches: list[dict]) -> dict:
 
     # cross_family: unique family count >= 2
     cross_family_triggered = unique_family_count >= 2
-    if cross_family_triggered:
+    if not ablate and cross_family_triggered:
         bonus_total += 2
         bonuses.append("cross_family")
 
     # density: any single family has 3+ matches
     density_triggered = any(count >= 3 for count in family_counts.values())
-    if density_triggered:
+    if not ablate and density_triggered:
         bonus_total += 1
         bonuses.append("density")
 
     # sophistication: total matches >= 4 AND unique families >= 3
     sophistication_triggered = len(matches) >= 4 and unique_family_count >= 3
-    if sophistication_triggered:
+    if not ablate and sophistication_triggered:
         bonus_total += 3
         bonuses.append("sophistication")
 
@@ -103,7 +106,7 @@ def score(matches: list[dict]) -> dict:
     # Step 5 — Compute totals and normalize.
     # ------------------------------------------------------------------
     raw_total = round(raw_score + bonus_total,2)
-    normalized = round(min(raw_total, 30) / 30 * 10, 2)
+    normalized = round(min(raw_total, 14) / 14 * 10, 2)
 
     # ------------------------------------------------------------------
     # Step 6 — Build and return the result dict.
