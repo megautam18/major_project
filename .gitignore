@@ -2,5 +2,5 @@
 .env.*
 .env.example
 scripts/login.py
-commands.txt
+commands
 .gitignore
