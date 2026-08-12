@@ -1,0 +1,4 @@
+python scripts/evaluate.py          # gateway: overall + per-source + per-bucket precision/recall/F1/FPR (full vs ablated scorer)
+python scripts/baseline_llm.py      # mistral baseline via Ollama — needs Ollama running with mistral:latest pulled; resumes from scripts/baseline_llm_results.csv if interrupted
+python scripts/multivector_analysis.py  # % of attacks firing multiple rules/families
+python scripts/benchmark_latency.py     # gateway latency (median/p95/p99/throughput)
