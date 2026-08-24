@@ -14,11 +14,12 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from dataset_loader import load_slabs, load_neuralchemy, load_dolly_benign  # noqa: E402
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL = "mistral:latest"
+MODEL = "phi4-mini:latest"
 SAMPLE_TARGET = 800
 SEED = 42
 
-RESULTS_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), "baseline_llm_results.csv")
+MODEL_SAFE = MODEL.replace(":", "-").replace("/", "-")
+RESULTS_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), f"baseline_llm_results_{MODEL_SAFE}.csv")
 CSV_FIELDS = ["idx", "source", "label", "attack_bucket", "text", "prediction", "parsed_ok", "latency_ms", "reply", "error"]
 
 PROMPT_TEMPLATE = (
